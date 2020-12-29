@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sets a window object 1`] = `
+Object {
+  "widgets": Object {
+    "BuyersGuide": Object {
+      "renderCalculator": [Function],
+      "renderProductRecommendation": [Function],
+      "renderProductSwiper": [Function],
+      "renderSnowboardFinder": [Function],
+    },
+    "ShopYourStyle": Object {
+      "Explorer": Object {
+        "renderStandalone": [Function],
+        "renderWithData": [Function],
+      },
+      "renderMoreStyles": [Function],
+      "renderProductsOverview": [Function],
+      "renderStyleLike": [Function],
+    },
+    "renderBlueWorldSearch": [Function],
+    "renderBlueWorldStories": [Function],
+    "renderCheckoutFeedbackForm": [Function],
+    "renderPDPFeedbackForm": [Function],
+    "renderSnowboardSwap": [Function],
+  },
+}
+`;

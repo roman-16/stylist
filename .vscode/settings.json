@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    "**/.eslintcache": true,
+    "**/.stylelintcache": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

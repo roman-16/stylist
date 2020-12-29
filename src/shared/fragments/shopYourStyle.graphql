@@ -1,0 +1,12 @@
+fragment shopYourStyle on ShopYourStyleStyle {
+  id
+  headline
+  images {
+    image
+  }
+  url
+  likes {
+    count
+    likedByMe
+  }
+}

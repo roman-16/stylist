@@ -1,0 +1,18 @@
+fragment product on Product {
+  id
+  brand
+  name
+  image
+  url
+  minPrice {
+    priceLocalDisplay
+    isDiscountPrice
+    regularPriceLocalDisplay
+  }
+  meta {
+    code
+    colorId
+    breadcrumb
+    englishname
+  }
+}

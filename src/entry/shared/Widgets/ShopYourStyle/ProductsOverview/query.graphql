@@ -1,0 +1,17 @@
+#import "@shared/fragments/productWithVariants.graphql"
+
+query ShopYourStyleProductOverview($ids: [ProductId!]!) {
+  products(ids: $ids) {
+    nodes {
+      ...productWithVariants
+
+      color
+      inStock
+      similarProducts(includeIf: [OUT_OF_STOCK]) {
+        nodes {
+          ...productWithVariants
+        }
+      }
+    }
+  }
+}

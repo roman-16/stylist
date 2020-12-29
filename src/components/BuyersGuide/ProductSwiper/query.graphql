@@ -1,0 +1,17 @@
+#import "@shared/fragments/product.graphql"
+
+query BuyersGuideProductSwiperFredhoppperUri($fredhopperUri: String!) {
+  products(fredhopperUri: $fredhopperUri) {
+    nodes {
+      ...product
+    }
+  }
+}
+
+query BuyersGuideProductSwiperIds($ids: [ProductId!]!) {
+  products(ids: $ids) {
+    nodes {
+      ...product
+    }
+  }
+}

@@ -1,0 +1,8 @@
+query WidgetTranslations($id: String!) {
+  widget(id: $id) {
+    translations {
+      key
+      values
+    }
+  }
+}

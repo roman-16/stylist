@@ -1,0 +1,10 @@
+#import "@shared/fragments/product.graphql"
+
+query SnowboardFinder($query: String){
+  products(fredhopperUri: $query, max: 30) {
+    totalCount
+    nodes {
+      ...product
+    }
+  }
+}

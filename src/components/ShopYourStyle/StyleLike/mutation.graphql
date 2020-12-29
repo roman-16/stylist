@@ -1,0 +1,13 @@
+mutation ToggleShopYourStyleLike($input: ToggleShopYourStyleLikeInput!) {
+  toggleShopYourStyleLike(input: $input) {
+    entry {
+      style {
+        id # id is needed, apollo automatically updates the local data with the new like count
+        likes {
+          count
+          likedByMe
+        }
+      }
+    }
+  }
+}

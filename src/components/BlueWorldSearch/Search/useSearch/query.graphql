@@ -1,0 +1,22 @@
+query BlueWorldSearch($searchTerm: String) {
+  blueWorld(searchTerm: $searchTerm, max: 20) {
+    __typename
+    image
+    urlNice
+    categories {
+      title
+    }
+
+    ... on TeamRider {
+      name
+      nation {
+        name
+        image
+      }
+    }
+
+    ... on BlueWorldStory {
+      title
+    }
+  }
+}

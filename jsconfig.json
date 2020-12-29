@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@@/*": ["./*"],
+      "@@jest/*": ["./.jest/*"],
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@context": ["./src/context/index"],
+      "@context/*": ["./src/context/*"],
+      "@env": ["./src/env"],
+      "@helpers": ["./src/helpers/index"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@shared/*": ["./src/shared/*"]
+    }
+  },
+  "include": ["./.jest", "./.storybook", "./shared", "./src"]
+}

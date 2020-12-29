@@ -1,0 +1,9 @@
+query ShopYourStyleLikes($ids: [ID!]) {
+  shopYourStyleStyles(ids: $ids, showOffline: true) {
+    id
+    likes {
+      count
+      likedByMe
+    }
+  }
+}

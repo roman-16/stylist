@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deepMapValues deep maps an object 1`] = `
+Array [
+  1,
+  "a",
+  Object {
+    "scope": "",
+  },
+]
+`;
+
+exports[`deepMapValues deep maps an object 2`] = `
+Array [
+  2,
+  "c",
+  Object {
+    "scope": "b",
+  },
+]
+`;
+
+exports[`deepMapValues deep maps an object 3`] = `
+Array [
+  3,
+  "e",
+  Object {
+    "scope": "b.d",
+  },
+]
+`;

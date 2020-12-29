@@ -1,0 +1,17 @@
+#import "./product.graphql"
+
+fragment productWithVariants on Product {
+  ...product
+
+  variants {
+    nodes {
+      id
+      stock
+      sizes {
+        name
+        size
+      }
+    }
+    sizes
+  }
+}

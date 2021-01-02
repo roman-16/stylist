@@ -31,7 +31,8 @@
     "react-hook-form": "^6.11.5",
     "react-use": "^15.3.4",
     "styled-components": "^5.1.1",
-    "styled-system": "^5.1.5"
+    "styled-system": "^5.1.5",
+    "stylis": "^4.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -86,12 +87,6 @@
   },
   "resolutions": {
     "graphql": "^15.4.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
-    }
   },
   "config": {
     "commitizen": {

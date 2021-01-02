@@ -1,6 +1,3 @@
-import styled from 'styled-components';
-import styledSystem from './shared/styledSystem';
+import styled from '@/astyle';
 
-export default styled.div`
-  ${styledSystem}
-`;
+export default styled('div', {});

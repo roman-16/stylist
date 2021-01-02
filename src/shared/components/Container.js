@@ -1,16 +1,13 @@
-import styled from 'styled-components';
-import styledSystem from './shared/styledSystem';
+import styled from '@/astyle';
 import Box from './Box';
 
-export default styled(Box)`
-  margin: 0 10px;
+export default styled(Box, {
+  margin: '0 10px',
 
-  ${(props) => props.theme.mediaQueries.medium} {
-    margin: auto;
-    max-width: 1300px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  ${styledSystem}
-`;
+  $medium: {
+    margin: 'auto',
+    maxWidth: '1300px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+  },
+});

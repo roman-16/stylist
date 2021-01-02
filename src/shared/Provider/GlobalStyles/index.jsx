@@ -58,7 +58,7 @@ const Reset = styled.div`
   }
 `;
 
-const namespaceId = `bt-ns-${randomId()}`;
+export const namespaceId = `bt-ns-${randomId()}`;
 const stylisNamespacePlugin = namespace(`#${namespaceId}`);
 
 // Needed for styled-components

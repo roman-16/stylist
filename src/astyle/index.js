@@ -1,5 +1,5 @@
 import { mapKeys } from 'lodash-es';
-import { MEDIA, RULESET } from 'stylis';
+import { RULESET } from 'stylis';
 import { namespaceId } from '@shared/Provider/GlobalStyles';
 import { createStyled } from '@/styler';
 import context from '@context';
@@ -46,8 +46,21 @@ export default createStyled({
     borderWidths: ['0px', '1px', '2px', '4px'],
     radii: ['0px', '1px', '2px', '4px', '8px', '16px'],
   },
-  utils: ({ variants }) => ({
+  utils: ({ theme, variants }) => ({
     font: variants(mapKeys(context.theme.fonts, (value, key) => `$${key}`)),
+    border: (value) => {
+      // https://regex101.com/r/E8f55J/1
+      const match = /\$\S*/g.exec(value)?.[0];
+
+      return match ? value.replace(match, theme.colors[match]) : value;
+    },
+    textOverflow: variants({
+      $ellipsis: {
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+      },
+    }),
   }),
   breakpoints: {
     $small: (rules) => `@media (min-width: 576px) { ${rules} }`,
@@ -59,17 +72,11 @@ export default createStyled({
   stylis: {
     middlewares: [
       (element) => {
-        let string = '';
-
-        if ([RULESET, MEDIA].includes(element.type) && element.root === null) {
-          string += `\n`;
-        }
-
         if (element.type === RULESET) {
-          string += `#${namespaceId} `;
+          return `#${namespaceId} `;
         }
 
-        return string;
+        return '';
       },
     ],
   },

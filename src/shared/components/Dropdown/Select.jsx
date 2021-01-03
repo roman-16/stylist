@@ -1,49 +1,48 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@/astyle';
 import Flex from '../Flex';
 import Select from '../Select';
 
-const Wrapper = styled(Flex)`
-  /* to position the arrow */
-  position: relative;
-  align-items: center;
+const Wrapper = styled(Flex, {
+  position: 'relative',
+  alignItems: 'center',
+  border: '1px solid $anthrazit',
 
-  border: 1px solid #333333;
+  '&::after': {
+    position: 'absolute',
+    right: '0',
+    marginRight: 4,
+    transform: 'rotate(90deg)',
+    fontSize: '24px',
+    pointerEvents: 'none',
+    // Use this symbol because it's easier to center
+    content: "'▸'",
+  },
+});
 
-  /* Add arrow */
-  &::after {
-    position: absolute;
-    right: 0;
-    margin-right: 16px;
-    transform: rotate(90deg);
-    font-size: 24px;
-    pointer-events: none;
-    /* Use this symbol because it's easier to center */
-    content: '▸';
-  }
-`;
+const StyledSelect = styled(Select, {
+  padding: '6px 16px',
+  // To give the arrow more space
+  paddingRight: '42px',
+  height: '100%',
+  minHeight: '40px',
+  width: '100%',
+  border: 'unset',
+  outline: 'unset',
+  fontWeight: 'bold',
+  fontSize: '11px',
+  color: '$anthrazit',
+  textOverflow: '$ellipsis',
 
-const StyledSelect = styled(Select).attrs({
+  $medium: {
+    fontSize: '13px',
+  },
+}).attrs({
   appearance: 'none',
-  color: 'anthrazit',
-  textOverflow: true,
-})`
-  padding: 6px 16px;
-  padding-right: 42px; /* To give the arrow more space */
-  height: 100%;
-  min-height: 40px;
-  width: 100%;
-  border: unset;
-  outline: unset;
-  font-weight: bold;
-  font-size: 11px;
-  ${(props) => props.theme.mediaQueries.medium} {
-    font-size: 13px;
-  }
-`;
+});
 
-export default ({ maxWidth, ...props }) => (
-  <Wrapper maxWidth={maxWidth}>
+export default ({ css, ...props }) => (
+  <Wrapper css={css}>
     <StyledSelect {...props} />
   </Wrapper>
 );

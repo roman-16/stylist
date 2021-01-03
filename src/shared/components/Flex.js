@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from '@/astyle';
 import Box from './Box';
 
-export default styled(Box)`
-  display: flex;
-`;
+export default styled(Box, {
+  display: 'flex',
+});

@@ -57,7 +57,7 @@ export default ({ breakpoints = {}, theme = {}, utils = {} } = {}) => {
       { keys: ['transition'], scale: theme.transitions },
     ]);
 
-  const getStylisString = (styles) =>
+  const getStylisString = (styles, disableUtil = false) =>
     Object.entries(styles).reduce((previous, [key, value]) => {
       const breakpoint = breakpoints[key];
       const util = utils[key];
@@ -69,14 +69,14 @@ export default ({ breakpoints = {}, theme = {}, utils = {} } = {}) => {
         return `${previous}${breakpoint(stylisString)}`;
       }
 
-      if (util) {
+      if (!disableUtil && util) {
         const utilValue = util(value);
 
         if (typeof utilValue === 'object') {
-          return `${previous}${getStylisString(utilValue)}`;
+          return `${previous}${getStylisString(utilValue, true)}`;
         }
 
-        return `${previous}${resolvedKey}:${resolveValue(key, utilValue)};`;
+        return `${previous}${resolvedKey}:${resolveValue(key, utilValue ?? value)};`;
       }
 
       if (typeof value === 'object') {

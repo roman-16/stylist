@@ -1,10 +1,9 @@
-import styled from 'styled-components';
+import styled from '@/astyle';
 import Basic from './Basic';
 
-export default styled(Basic.Input).attrs({
-  font: 'm',
-  color: 'anthrazit',
-})`
-  padding: 8px;
-  border: 1px solid ${(props) => props.theme.colors.middleGrey};
-`;
+export default styled(Basic.Input, {
+  font: '$m',
+  color: '$anthrazit',
+  p: 3,
+  border: '1px solid $middleGrey',
+});

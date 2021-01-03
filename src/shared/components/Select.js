@@ -1,13 +1,9 @@
-import styled from 'styled-components';
-import styledSystem from './shared/styledSystem';
+import styled from '@/astyle';
 
-export default styled.select`
-  ${styledSystem}
-
-  ${(props) =>
-    props.appearance === 'none' &&
-    `
-      -webkit-appearance: none;
-      -moz-appearance: none;
-    `}
-`;
+export default styled('select', ({ props }) => ({
+  ...(props.appearance === 'none' && {
+    appearance: 'none',
+    '-webkit-appearance': 'none',
+    '-moz-appearance': 'none',
+  }),
+}));

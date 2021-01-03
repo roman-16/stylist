@@ -1,13 +1,18 @@
-const deepMerge = (object1, object2) => {
-  if (!object2) return object1;
+const deepMerge = (target, ...sources) => {
+  const parsedSources = sources.filter(Boolean);
 
-  return Object.entries(object2).reduce(
+  if (!parsedSources.length) return target;
+
+  const source = parsedSources.shift();
+  const mergedObject = Object.entries(source).reduce(
     (previous, [key, value]) => ({
       ...previous,
       [key]: typeof value === 'object' && previous[key] ? deepMerge(previous[key], value) : value,
     }),
-    object1,
+    target,
   );
+
+  return deepMerge(mergedObject, ...parsedSources);
 };
 
 export default deepMerge;

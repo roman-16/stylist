@@ -1,4 +1,4 @@
-import { createElement, useEffect, useRef, useState } from 'react';
+import { createElement, forwardRef, useEffect, useRef, useState } from 'react';
 import { deepMerge } from './utils';
 import createStylesheet from './createStylesheet';
 
@@ -16,29 +16,57 @@ const createStyled = (config) => {
   const stylesheet = createStylesheet(config);
 
   return (element, styles) => {
-    const StyledComponent = ({ css, ...props }) => {
+    const StyledComponent = forwardRef((props, ref) => {
+      const stylist = StyledComponent.__stylist;
+      const { css, ...mergedProps } = {
+        ...stylist.props.reduce(
+          (previous, _props) => ({
+            ...previous,
+            ..._props,
+          }),
+          {},
+        ),
+        ...props,
+      };
       const firstMount = useFirstMount();
       const [className, setClassName] = useState(() => {
-        const { styles: elementStyles } = StyledComponent.__styler;
+        const newStyles = stylist.styles.reduce(
+          (previous, _styles) =>
+            deepMerge(previous, typeof _styles === 'function' ? _styles({ props: mergedProps }) : _styles, css),
+          {},
+        );
 
-        return stylesheet.addStyles(deepMerge(elementStyles, css));
+        return stylesheet.addStyles(newStyles);
       });
 
       useEffect(() => {
         if (firstMount) return;
 
-        throw new Error('css updated');
-      }, [firstMount, css]);
+        console.log(css, mergedProps);
 
-      return createElement(element, {
-        ...props,
+        throw new Error('css or props updated');
+        // TODO: Add update mechanism
+        // }, [JSON.stringify(css), mergedProps]);
+      }, []);
+
+      return createElement(stylist.rootElement, {
+        ...mergedProps,
+        ref,
         // eslint-disable-next-line react/destructuring-assignment
-        className: `${props.className ?? ''} ${className ?? ''}`.trim(),
+        className: `${mergedProps.className ?? ''} ${className ?? ''}`.trim(),
       });
+    });
+
+    StyledComponent.__stylist = {
+      rootElement: element.__stylist ? element.__stylist.rootElement : element,
+      props: element.__stylist ? element.__stylist.props : [],
+      styles: element.__stylist ? [...element.__stylist.styles, styles] : [styles],
     };
 
-    StyledComponent.__styler = {
-      styles: element.__styler ? deepMerge(element.__styler.styles, styles) : styles,
+    StyledComponent.attrs = (props) => {
+      StyledComponent.__stylist.props = [...StyledComponent.__stylist.props, props];
+
+      return StyledComponent;
     };
 
     return StyledComponent;

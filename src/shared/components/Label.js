@@ -1,10 +1,7 @@
-import styled from 'styled-components';
-import styledSystem from './shared/styledSystem';
+import styled from '@/astyle';
 
-export default styled.label`
-  &[for] {
-    cursor: pointer;
-  }
-
-  ${styledSystem}
-`;
+export default styled('label', {
+  '&[for]': {
+    cursor: 'pointer',
+  },
+});

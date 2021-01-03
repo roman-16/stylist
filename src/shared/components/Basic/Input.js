@@ -1,19 +1,15 @@
-import styled from 'styled-components';
-import styledSystem from '../shared/styledSystem';
+import styled from '@/astyle';
 
-export default styled.input`
-  outline: none;
+export default styled('input', {
+  outline: 'none',
 
-  &:focus {
-    outline: none;
-  }
+  '&:focus': {
+    outline: 'none',
+  },
 
-  /* remove input shadow from iOS devices */
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-appearance: none;
-
-  /* input has a given color on ios devices */
-  -webkit-text-fill-color: currentcolor;
-
-  ${styledSystem}
-`;
+  // remove input shadow from iOS devices
+  // stylelint-disable-next-line property-no-vendor-prefix
+  '-webkit-appearance': 'none',
+  // input has a given color on ios devices
+  '-webkit-text-fill-color': 'currentcolor',
+});

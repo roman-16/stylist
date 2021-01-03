@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled from '@/astyle';
 import { Controller, useForm } from 'react-hook-form';
 import { Box, Dropdown, Input, Label, Text } from '@shared/components';
 
-const StyledLabel = styled(Label)`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-`;
+const StyledLabel = styled(Label, {
+  display: 'flex',
+  flexDirection: 'column',
+  mb: 4,
+});
 
-const LabelText = styled(Text).attrs({
-  font: 'xs',
+const LabelText = styled(Text, {
+  mb: 1,
+  font: '$xs',
   fontWeight: '700',
-  color: 'anthrazit',
-})`
-  margin-bottom: 2px;
-`;
+  color: '$anthrazit',
+});
 
 export default ({ data, ...props }) => {
   const { control, register, watch } = useForm();
@@ -68,7 +67,15 @@ export default ({ data, ...props }) => {
 
       <StyledLabel>
         <LabelText>{data.labels.result}</LabelText>
-        <Input font="m" fontWeight="700" color="buyersguideGreen" readOnly value={result} />
+        <Input
+          css={{
+            font: '$m',
+            fontWeight: '700',
+            color: '$buyersguideGreen',
+          }}
+          readOnly
+          value={result}
+        />
       </StyledLabel>
 
       {/* EASTER EGG */}

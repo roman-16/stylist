@@ -42,12 +42,6 @@ module.exports = (api) => {
             },
           ],
           moduleResolver,
-          [
-            'babel-plugin-styled-components',
-            {
-              displayName: false,
-            },
-          ],
         ],
         sourceType: 'unambiguous',
         compact: false,

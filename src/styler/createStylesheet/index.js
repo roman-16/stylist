@@ -1,5 +1,6 @@
 import createGetStylisString from './createGetStylisString';
 import createParseStylisString from './createParseStylisString';
+import resolveUtils from './resolveUtils';
 
 let randomIndex = 0;
 let styleElement;
@@ -13,8 +14,9 @@ const checkStyleElement = () => {
   document.head.appendChild(styleElement);
 };
 
-export default ({ breakpoints, theme, stylis } = {}) => {
-  const getStylisString = createGetStylisString({ breakpoints, theme });
+export default ({ breakpoints, theme, stylis, utils } = {}) => {
+  const resolvedUtils = resolveUtils(utils, theme);
+  const getStylisString = createGetStylisString({ breakpoints, theme, utils: resolvedUtils });
   const parseStylisString = createParseStylisString(stylis);
 
   return {

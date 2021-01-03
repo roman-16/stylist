@@ -16,12 +16,6 @@ const createStyled = (config) => {
   const stylesheet = createStylesheet(config);
 
   return (element, styles) => {
-    if (element.__styler) {
-      element.__styler.styles = deepMerge(element.__styler.styles, styles);
-
-      return element;
-    }
-
     const StyledComponent = ({ css, ...props }) => {
       const firstMount = useFirstMount();
       const [className, setClassName] = useState(() => {
@@ -44,7 +38,7 @@ const createStyled = (config) => {
     };
 
     StyledComponent.__styler = {
-      styles,
+      styles: element.__styler ? deepMerge(element.__styler.styles, styles) : styles,
     };
 
     return StyledComponent;

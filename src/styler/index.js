@@ -1,5 +1,5 @@
-import { createElement, forwardRef, useEffect, useRef, useState } from 'react';
-import { deepMerge } from './utils';
+import { createElement, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import { createClassName, deepMerge } from './utils';
 import createStylesheet from './createStylesheet';
 
 const useFirstMount = () => {
@@ -17,6 +17,7 @@ const createStyled = (config) => {
 
   return (element, styles) => {
     const StyledComponent = forwardRef((props, ref) => {
+      const firstMount = useFirstMount();
       const stylist = StyledComponent.__stylist;
       const { css, ...mergedProps } = {
         ...stylist.props.reduce(
@@ -28,16 +29,22 @@ const createStyled = (config) => {
         ),
         ...props,
       };
-      const firstMount = useFirstMount();
-      const [className, setClassName] = useState(() => {
+
+      const staticClassName = useMemo(() => {
+        if (stylesheet.hasStyles(stylist.staticClassName)) return stylist.staticClassName;
+
         const newStyles = stylist.styles.reduce(
           (previous, _styles) =>
-            deepMerge(previous, typeof _styles === 'function' ? _styles({ props: mergedProps }) : _styles, css),
+            deepMerge(previous, typeof _styles === 'function' ? _styles({ props: mergedProps }) : _styles),
           {},
         );
 
-        return stylesheet.addStyles(newStyles);
-      });
+        stylesheet.addStyles(newStyles, stylist.staticClassName);
+
+        return stylist.staticClassName;
+      }, []);
+
+      const className = useMemo(() => css && stylesheet.addStyles(css), []);
 
       useEffect(() => {
         if (firstMount) return;
@@ -53,14 +60,15 @@ const createStyled = (config) => {
         ...mergedProps,
         ref,
         // eslint-disable-next-line react/destructuring-assignment
-        className: `${mergedProps.className ?? ''} ${className ?? ''}`.trim(),
+        className: `${mergedProps.className ?? ''} ${staticClassName} ${className || ''}`.trim(),
       });
     });
 
     StyledComponent.__stylist = {
-      rootElement: element.__stylist ? element.__stylist.rootElement : element,
-      props: element.__stylist ? element.__stylist.props : [],
+      staticClassName: createClassName('sts'),
+      rootElement: element.__stylist?.rootElement ?? element,
       styles: element.__stylist ? [...element.__stylist.styles, styles] : [styles],
+      props: element.__stylist?.props ?? [],
     };
 
     StyledComponent.attrs = (props) => {
@@ -68,6 +76,8 @@ const createStyled = (config) => {
 
       return StyledComponent;
     };
+
+    StyledComponent.toString = () => `.${StyledComponent.__stylist.staticClassName}`;
 
     return StyledComponent;
   };

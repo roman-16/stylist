@@ -1,7 +1,0 @@
-mutation AddPDPFeedback($input: AddPDPFeedbackInput!) {
-  addPDPFeedback(input: $input) {
-    feedback {
-      cursor
-    }
-  }
-}

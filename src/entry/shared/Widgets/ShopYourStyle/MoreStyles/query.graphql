@@ -1,7 +1,0 @@
-#import "@shared/fragments/shopYourStyle.graphql"
-
-query ShopYourStyleStyles($gender: ShopGender!) {
-  shopYourStyleStyles(max: 7, gender: $gender, inStock: true) {
-    ...shopYourStyle
-  }
-}

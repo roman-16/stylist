@@ -1,7 +1,0 @@
-# Unignore dot-directories
-!.*
-**/.git/
-.git/
-**/node_modules/
-node_modules/
-dist/

@@ -5,7 +5,23 @@
   "repository": "git@github.com:wa4-fearless-otter/stylist.git",
   "author": "Roman <rl16@posteo.net>",
   "license": "MIT",
+  "scripts": {
+    "build": "node ./scripts/build.js",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "stylis": "^4.0.6"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1"
+  },
   "devDependencies": {
-    "esbuild": "^0.8.32"
+    "@types/react": "^17.0.0",
+    "@types/stylis": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
+    "esbuild": "^0.8.32",
+    "eslint": "^7.18.0",
+    "typescript": "^4.1.3"
   }
 }

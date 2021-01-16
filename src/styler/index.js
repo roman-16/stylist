@@ -1,16 +1,6 @@
-import { createElement, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
-import { createClassName, deepMerge } from './utils';
+import { createElement, forwardRef, useEffect, useMemo } from 'react';
+import { createClassName, deepMerge, useFirstMount } from './utils';
 import createStylesheet from './createStylesheet';
-
-const useFirstMount = () => {
-  const firstMount = useRef(true);
-
-  useEffect(() => {
-    firstMount.current = false;
-  }, []);
-
-  return firstMount.current;
-};
 
 const createStyled = (config) => {
   const stylesheet = createStylesheet(config);
@@ -38,6 +28,8 @@ const createStyled = (config) => {
             deepMerge(previous, typeof _styles === 'function' ? _styles({ props: mergedProps }) : _styles),
           {},
         );
+
+        console.log(newStyles);
 
         stylesheet.addStyles(newStyles, stylist.staticClassName);
 

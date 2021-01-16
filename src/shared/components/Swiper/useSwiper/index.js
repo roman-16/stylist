@@ -79,7 +79,7 @@ export default (config = {}) => {
       onChildrenChange,
       onNextClick: useCallback(() => next(config.navigation?.step), [config.navigation?.step, next]),
       onPreviousClick: useCallback(() => previous(config.navigation?.step), [config.navigation?.step, previous]),
-      justifyContent,
+      css: { justifyContent },
       addNextArrow,
       addPreviousArrow,
     },

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useMemo } from 'react';
-import styled from 'styled-components';
+import styled from '@/astyle';
 import { scene7 } from '@helpers';
 import { useContext } from '@shared/hooks';
-import styledSystem from './shared/styledSystem';
 import Box from './Box';
 
 const transparentImage =
@@ -18,12 +17,10 @@ const modifySrc = (src) => {
   return scene7.addParams(innerSrc, options);
 };
 
-const Image = styled.img`
-  object-fit: cover;
-  object-position: 50% 50%;
-
-  ${styledSystem}
-`;
+const Image = styled('img', {
+  objectFit: 'cover',
+  objectPosition: 50 % '50%',
+});
 
 export default ({ src, srcset, disableLazyLoading, aspectRatio, ...props }) => {
   const image = useRef();
@@ -41,8 +38,15 @@ export default ({ src, srcset, disableLazyLoading, aspectRatio, ...props }) => {
   }, [api.bto.lazyload, disableLazyLoading, newSrc]);
 
   return aspectRatio ? (
-    <Box position="relative" paddingBottom={`${(aspectRatio.height / aspectRatio.width) * 100}%`} width="100%">
-      <Image ref={image} src={transparentImage} srcset={newSrcSet} data-src={newSrc} position="absolute" {...props} />
+    <Box css={{ position: 'relative', pb: `${(aspectRatio.height / aspectRatio.width) * 100}%`, width: '100%' }}>
+      <Image
+        css={{ position: 'absolute' }}
+        ref={image}
+        src={transparentImage}
+        srcset={newSrcSet}
+        data-src={newSrc}
+        {...props}
+      />
     </Box>
   ) : (
     <Image ref={image} src={transparentImage} srcset={newSrcSet} data-src={newSrc} {...props} />

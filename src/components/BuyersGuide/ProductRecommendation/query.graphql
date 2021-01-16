@@ -1,9 +1,0 @@
-#import "@shared/fragments/product.graphql"
-
-query BuyersGuideProductRecommendation($fredhopperUri: String!) {
-  products(fredhopperUri: $fredhopperUri, max: 10) {
-    nodes {
-      ...product
-    }
-  }
-}

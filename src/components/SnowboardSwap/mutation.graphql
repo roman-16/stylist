@@ -1,5 +1,0 @@
-mutation AddSnowboardSwapEntry($input: AddSnowboardSwapEntryInput!) {
-  addSnowboardSwapEntry(input: $input) {
-    success
-  }
-}

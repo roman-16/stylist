@@ -1,5 +1,0 @@
-mutation AddCheckoutFeedback($input: AddCheckoutFeedbackInput!) {
-  addCheckoutFeedback(input: $input) {
-    success
-  }
-}

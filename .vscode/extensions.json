@@ -1,8 +1,0 @@
-{
-  "recommendations": [
-    "editorconfig.editorconfig",
-    "jpoissonnier.vscode-styled-components",
-    "dbaeumer.vscode-eslint",
-    "apollographql.vscode-apollo"
-  ]
-}

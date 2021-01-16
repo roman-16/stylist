@@ -1,9 +1,0 @@
-#import "@shared/fragments/product.graphql"
-
-query ShopYourStyleProducts($ids: [ProductId!]) {
-  products(ids: $ids) {
-    nodes {
-      ...product
-    }
-  }
-}

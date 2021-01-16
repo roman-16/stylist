@@ -61,6 +61,15 @@ export default createStyled({
         overflow: 'hidden',
       },
     }),
+    scrollbar: variants({
+      $hidden: {
+        MsOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+        '&::WebkitScrollbar': {
+          display: 'none',
+        },
+      },
+    }),
   }),
   breakpoints: {
     $small: (rules) => `@media (min-width: 576px) { ${rules} }`,

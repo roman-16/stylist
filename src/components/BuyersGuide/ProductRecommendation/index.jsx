@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled from '@/astyle';
 import { useQuery } from '@apollo/client';
 import { A, Container, Dropdown, Flex, Product, Swiper, useSwiper } from '@shared/components';
 import { useContext, useMediaQuery } from '@shared/hooks';
 import graphqlQuery from './query.graphql';
 
-const Button = styled(A).attrs({
-  type: 'nav',
-  bg: 'orange',
-  font: 'm',
-})`
-  padding-left: 32px;
-  padding-right: 32px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  text-align: center;
-  font-weight: bold;
-  color: white;
+const Button = styled(A, {
+  py: 3,
+  px: 6,
+  font: '$m',
+  textAlign: 'center',
+  fontWeight: 'bold',
+  color: '#ffffff',
+  bg: '$orange',
 
-  &:hover,
-  :focus,
-  :visited {
-    color: white;
-  }
-`;
+  '&:hover, &:focus, &:visited': {
+    color: '#ffffff',
+  },
+}).attrs({
+  type: 'nav',
+});
 
 export default ({ data, onNoProduct, ...props }) => {
   const isArray = Array.isArray(data);
@@ -51,13 +47,15 @@ export default ({ data, onNoProduct, ...props }) => {
     <Container {...props}>
       {isArray && (
         <Dropdown
+          css={{
+            maxWidth: '256px',
+          }}
           values={data.map((_entry) => ({
             value: _entry.query,
             text: _entry.title,
           }))}
           defaultValue={entry.query}
           onChange={(newQuery) => setEntry(data.find(({ query }) => query === newQuery))}
-          maxWidth="256px"
         />
       )}
       <Swiper {...swiperProps} mt="6">
@@ -75,7 +73,7 @@ export default ({ data, onNoProduct, ...props }) => {
           return <Product key={product.id} product={product} minWidth={width} maxWidth={width} {...analyticsProps} />;
         })}
       </Swiper>
-      <Flex justifyContent="center" mt="6">
+      <Flex css={{ justifyContent: 'center', mt: 6 }}>
         <Button href={entry.button.url}>{entry.button.text}</Button>
       </Flex>
     </Container>

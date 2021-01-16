@@ -1,20 +1,17 @@
-import styled from 'styled-components';
-import styledSystem from './shared/styledSystem';
+import styled from '@/astyle';
 
-export default styled.button`
-  background-color: unset;
-  border: unset;
-  outline: none;
-  cursor: pointer;
+export default styled('button', {
+  backgroundColor: 'unset',
+  border: 'unset',
+  outline: 'none',
+  cursor: 'pointer',
 
-  /* button has a given color on ios devices */
-  -webkit-text-fill-color: currentcolor;
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-appearance: none;
+  // button has a given color on ios devices
+  WebkitTextFillColor: 'currentcolor',
+  // stylelint-disable-next-line property-no-vendor-prefix
+  WebkitAppearance: 'none',
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-
-  ${styledSystem}
-`;
+  '&:disabled': {
+    cursor: 'not-allowed',
+  },
+});

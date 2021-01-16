@@ -9,7 +9,7 @@ export default styled('input', {
 
   // remove input shadow from iOS devices
   // stylelint-disable-next-line property-no-vendor-prefix
-  '-webkit-appearance': 'none',
+  WebkitAppearance: 'none',
   // input has a given color on ios devices
-  '-webkit-text-fill-color': 'currentcolor',
+  WebkitTextFillColor: 'currentcolor',
 });

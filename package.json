@@ -1,0 +1,8 @@
+{
+  "name": "stylist",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "git@github.com:wa4-fearless-otter/stylist.git",
+  "author": "Roman <rl16@posteo.net>",
+  "license": "MIT"
+}

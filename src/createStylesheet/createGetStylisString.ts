@@ -1,4 +1,4 @@
-import { Breakpoints, Styles, Theme, ThemeProperty, UtilsObject } from '../types';
+import { Breakpoints, Styles, Theme, ThemeProperty, UtilsObject } from '@/types';
 
 const hyphenateRegex = /[A-Z]|^ms/g;
 const resolveKey = (styleName: string) => styleName.replace(hyphenateRegex, '-$&').toLowerCase();

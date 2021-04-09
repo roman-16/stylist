@@ -1,4 +1,4 @@
-import { Theme, Utils, UtilsObject } from '../types';
+import { Theme, Utils, UtilsObject } from '@/types';
 
 const ownUtils: UtilsObject = {
   m: (value) => ({ margin: value }),

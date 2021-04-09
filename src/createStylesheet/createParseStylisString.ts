@@ -1,5 +1,5 @@
 import { compile, middleware, prefixer, serialize, stringify, MEDIA, RULESET } from 'stylis';
-import { StylisConfig } from '../types';
+import { StylisConfig } from '@/types';
 
 const createParseStylisString = ({ middlewares }: StylisConfig = {}) => (stylisString: string) =>
   serialize(

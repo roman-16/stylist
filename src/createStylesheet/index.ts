@@ -1,5 +1,5 @@
-import { Config, Styles } from '../types';
-import { createClassName, uniqueId } from '../utils';
+import { Config, Styles } from '@/types';
+import { createClassName, uniqueId } from '@/utils';
 import createGetStylisString from './createGetStylisString';
 import createParseStylisString from './createParseStylisString';
 import resolveUtils from './resolveUtils';

@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "baseUrl": "src/",
+    "paths": {
+      "@/*": [
+        "*"
+      ],
+    }
   },
   "include": [
-    "./src/**/*.ts",
+    "src/**/*.ts",
   ]
 }

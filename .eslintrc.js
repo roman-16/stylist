@@ -36,6 +36,8 @@ module.exports = {
       plugins: ['@typescript-eslint', 'prettier', 'react', 'react-hooks'],
       rules: {
         ...prettierRule,
+        'no-underscore-dangle': ['error', { allow: ['__stylist'] }],
+        'no-plusplus': 'off',
       },
     },
   ],

@@ -1,66 +1,135 @@
-const hyphenateRegex = /[A-Z]|^ms/g;
-const resolveKey = (styleName) => styleName.replace(hyphenateRegex, '-$&').toLowerCase();
+import { Breakpoints, Styles, Theme, ThemeProperty, UtilsObject } from '../types';
 
-const resolveScales = (key, value, scales) => {
+const hyphenateRegex = /[A-Z]|^ms/g;
+const resolveKey = (styleName: string) => styleName.replace(hyphenateRegex, '-$&').toLowerCase();
+
+interface Scales {
+  keys: string[];
+  scale: ThemeProperty;
+}
+
+const resolveScales = (key: string, value: string | number, scales: Scales[]): string => {
+  const getStringValue = () => {
+    if (typeof value === 'number') throw new Error(`Key '${key}' can't have value '${value}' of type number.`);
+
+    return value;
+  };
+
   for (let i = 0; i < scales.length; i++) {
     const { keys, scale } = scales[i];
 
     if (keys.includes(key)) {
       if (
         (Array.isArray(scale) && typeof value === 'number') ||
-        (typeof scale === 'object' && scale !== null && !Array.isArray(scale))
+        (!Array.isArray(scale) && typeof scale === 'object' && scale !== null)
       ) {
-        return scale[value] ?? value;
+        // FIXME: Here are weird errors with the value on array or object, I don't know how to fix this yet so this must do for now
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return scale[value] ?? getStringValue();
       }
 
-      return value;
+      return getStringValue();
     }
   }
 
-  return value;
+  return getStringValue();
 };
 
-export default ({ breakpoints = {}, theme = {}, utils = {} } = {}) => {
-  const resolveValue = (key, value) =>
-    resolveScales(key, value, [
-      {
-        keys: [
-          'margin',
-          'marginTop',
-          'marginRight',
-          'marginBottom',
-          'marginLeft',
-          'padding',
-          'paddingTop',
-          'paddingRight',
-          'paddingBottom',
-          'paddingLeft',
-          'gridGap',
-          'gridColumnGap',
-          'gridRowGap',
-        ],
-        scale: theme.space,
-      },
-      { keys: ['fontSize'], scale: theme.fontSizes },
-      { keys: ['color', 'backgroundColor', 'borderColor'], scale: theme.colors },
-      { keys: ['fontFamily'], scale: theme.fonts },
-      { keys: ['fontWeight'], scale: theme.fontWeights },
-      { keys: ['lineHeight'], scale: theme.lineHeights },
-      { keys: ['letterSpacing'], scale: theme.letterSpacings },
-      { keys: ['width', 'height', 'minWidth', 'maxWidth', 'minHeight', 'maxHeight'], scale: theme.sizes },
-      { keys: ['border', 'borderTop', 'borderRight', 'borderBottom', 'borderLeft'], scale: theme.borders },
-      { keys: ['borderWidth'], scale: theme.borderWidths },
-      { keys: ['borderStyle'], scale: theme.borderStyles },
-      { keys: ['borderRadius'], scale: theme.radii },
-      { keys: ['boxShadow', 'textShadow'], scale: theme.shadows },
-      { keys: ['zIndex'], scale: theme.zIndices },
-      { keys: ['transition'], scale: theme.transitions },
-    ]);
+const createGetStylisString = ({
+  breakpoints,
+  theme,
+  utilsObject,
+}: {
+  breakpoints?: Breakpoints;
+  theme?: Theme;
+  utilsObject?: UtilsObject;
+}) => {
+  const scales: Scales[] = [];
 
-  const getStylisString = (styles, disableUtil = false) =>
+  if (theme?.space) {
+    scales.push({
+      keys: [
+        'margin',
+        'marginTop',
+        'marginRight',
+        'marginBottom',
+        'marginLeft',
+        'padding',
+        'paddingTop',
+        'paddingRight',
+        'paddingBottom',
+        'paddingLeft',
+        'gridGap',
+        'gridColumnGap',
+        'gridRowGap',
+      ],
+      scale: theme.space,
+    });
+  }
+
+  if (theme?.fontSizes) {
+    scales.push({ keys: ['fontSize'], scale: theme.fontSizes });
+  }
+
+  if (theme?.colors) {
+    scales.push({ keys: ['color', 'backgroundColor', 'borderColor'], scale: theme.colors });
+  }
+
+  if (theme?.fonts) {
+    scales.push({ keys: ['fontFamily'], scale: theme.fonts });
+  }
+
+  if (theme?.fontWeights) {
+    scales.push({ keys: ['fontWeight'], scale: theme.fontWeights });
+  }
+
+  if (theme?.lineHeights) {
+    scales.push({ keys: ['lineHeight'], scale: theme.lineHeights });
+  }
+
+  if (theme?.letterSpacings) {
+    scales.push({ keys: ['letterSpacing'], scale: theme.letterSpacings });
+  }
+
+  if (theme?.sizes) {
+    scales.push({ keys: ['width', 'height', 'minWidth', 'maxWidth', 'minHeight', 'maxHeight'], scale: theme.sizes });
+  }
+
+  if (theme?.borders) {
+    scales.push({ keys: ['border', 'borderTop', 'borderRight', 'borderBottom', 'borderLeft'], scale: theme.borders });
+  }
+
+  if (theme?.borderWidths) {
+    scales.push({ keys: ['borderWidth'], scale: theme.borderWidths });
+  }
+
+  if (theme?.borderStyles) {
+    scales.push({ keys: ['borderStyle'], scale: theme.borderStyles });
+  }
+
+  if (theme?.radii) {
+    scales.push({ keys: ['borderRadius'], scale: theme.radii });
+  }
+
+  if (theme?.shadows) {
+    scales.push({ keys: ['boxShadow', 'textShadow'], scale: theme.shadows });
+  }
+
+  if (theme?.zIndices) {
+    scales.push({ keys: ['zIndex'], scale: theme.zIndices });
+  }
+
+  if (theme?.transitions) {
+    scales.push({ keys: ['transition'], scale: theme.transitions });
+  }
+
+  const resolveValue = (key: string, value: string) => resolveScales(key, value, scales);
+
+  const getStylisString = (styles: Styles, disableUtil = false): string =>
     Object.entries(styles).reduce((previous, [key, value]) => {
-      const breakpoint = breakpoints[key];
-      const util = utils[key];
+      const breakpoint = breakpoints?.[key];
+      const util = utilsObject?.[key];
       const resolvedKey = resolveKey(key);
 
       if (breakpoint) {
@@ -90,3 +159,5 @@ export default ({ breakpoints = {}, theme = {}, utils = {} } = {}) => {
 
   return getStylisString;
 };
+
+export default createGetStylisString;

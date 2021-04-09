@@ -1,13 +1,16 @@
-const deepMerge = (target, ...sources) => {
+const deepMerge = (target: Record<string, any>, ...sources: {}[]): {} => {
   const parsedSources = sources.filter(Boolean);
-
-  if (!parsedSources.length) return target;
-
   const source = parsedSources.shift();
+
+  if (!source) return target;
+
   const mergedObject = Object.entries(source).reduce(
     (previous, [key, value]) => ({
       ...previous,
-      [key]: typeof value === 'object' && previous[key] ? deepMerge(previous[key], value) : value,
+      [key]:
+        typeof previous[key] === 'object' && typeof value === 'object' && value !== null
+          ? deepMerge(previous[key], value)
+          : value,
     }),
     target,
   );

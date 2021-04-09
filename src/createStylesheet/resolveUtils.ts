@@ -1,4 +1,6 @@
-const ownUtils = {
+import { Theme, Utils, UtilsObject } from '../types';
+
+const ownUtils: UtilsObject = {
   m: (value) => ({ margin: value }),
   mt: (value) => ({ marginTop: value }),
   mr: (value) => ({ marginRight: value }),
@@ -18,7 +20,9 @@ const ownUtils = {
   bg: (value) => ({ backgroundColor: value }),
 };
 
-export default (utils, theme) => {
+const resolveUtils = (utils?: Utils, theme?: Theme): UtilsObject | undefined => {
+  if (!utils) return undefined;
+
   if (typeof utils === 'function') {
     return {
       ...ownUtils,
@@ -34,3 +38,5 @@ export default (utils, theme) => {
     ...utils,
   };
 };
+
+export default resolveUtils;

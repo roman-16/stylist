@@ -1,3 +1,5 @@
-let index = 0;
+import uniqueId from './uniqueId';
 
-export default (prefix = 'st') => `${prefix}-${Math.round(Math.random() * 10000)}-${index++}`;
+const createClassName = (prefix = 'st') => `${prefix}-${uniqueId()}`;
+
+export default createClassName;

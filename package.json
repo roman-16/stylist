@@ -1,15 +1,21 @@
 {
   "name": "stylist",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "exports": "./dist/index.modern.js",
+  "module": "dist/index.module.js",
+  "unpkg": "dist/index.umd.js",
   "repository": "git@github.com:wa4-fearless-otter/stylist.git",
   "author": "Roman <rl16@posteo.net>",
   "license": "MIT",
   "scripts": {
-    "build": "node ./scripts/build.js",
-    "lint": "eslint ."
+    "build": "microbundle",
+    "lint": "eslint --fix .",
+    "start": "microbundle watch"
   },
   "dependencies": {
+    "csstype": "^3.0.6",
     "stylis": "^4.0.6"
   },
   "peerDependencies": {
@@ -20,8 +26,17 @@
     "@types/stylis": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
-    "esbuild": "^0.8.32",
     "eslint": "^7.18.0",
+    "eslint-config-airbnb-typescript": "^12.0.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "microbundle": "^0.13.0",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
     "typescript": "^4.1.3"
   }
 }

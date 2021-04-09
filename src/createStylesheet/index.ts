@@ -1,44 +1,41 @@
-import { createClassName } from '../utils';
+import { Config, Styles } from '../types';
+import { createClassName, uniqueId } from '../utils';
 import createGetStylisString from './createGetStylisString';
 import createParseStylisString from './createParseStylisString';
 import resolveUtils from './resolveUtils';
 
-export default ({ breakpoints, theme, stylis, utils } = {}) => {
-  let styleElement;
-  const stylesMap = new Map();
-  const resolvedUtils = resolveUtils(utils, theme);
-  const getStylisString = createGetStylisString({ breakpoints, theme, utils: resolvedUtils });
+const createStylesheet = ({ breakpoints, theme, stylis, utils }: Config) => {
+  const styleElement = document.createElement('style');
+  const stylesMap = new Map<string, number[]>();
+  const utilsObject = resolveUtils(utils, theme);
+  const getStylisString = createGetStylisString({ breakpoints, theme, utilsObject });
   const parseStylisString = createParseStylisString(stylis);
 
-  const checkStyleElement = () => {
-    if (styleElement) return;
+  styleElement.id = `stylist-styles-${uniqueId()}`;
 
-    styleElement = document.createElement('style');
-    styleElement.id = 'styler-styles';
-
-    document.head.appendChild(styleElement);
-  };
+  document.head.appendChild(styleElement);
 
   return {
-    addStyles: (styles, className = createClassName()) => {
+    addStyles: (styles: Styles, className = createClassName()) => {
       if (Object.keys(styles).length === 0) return className;
 
       const stylisString = `.${className}{${getStylisString(styles)}}`;
-      const stylesStrings = parseStylisString(stylisString).split('\n').slice(1);
-
-      checkStyleElement();
+      const stylesStrings = parseStylisString(stylisString);
 
       stylesStrings.forEach((stylesString) => {
-        const index = styleElement.sheet.insertRule(stylesString, styleElement.sheet.cssRules.length);
+        if (!styleElement.sheet) throw new Error('CSSStyleSheet is not defined.');
 
+        const index = styleElement.sheet.insertRule(stylesString, styleElement.sheet.cssRules.length);
         const value = stylesMap.get(className);
 
-        stylesMap.set(className, value ? [...value, index] : [index]);
+        stylesMap.set(className, [...(value ?? []), index]);
       });
 
       return className;
     },
 
-    hasStyles: (className) => stylesMap.has(className),
+    hasStyles: (className: string) => stylesMap.has(className),
   };
 };
+
+export default createStylesheet;

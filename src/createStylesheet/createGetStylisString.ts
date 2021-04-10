@@ -81,8 +81,13 @@ const createGetStylisString = ({
         'paddingRight',
         'paddingBottom',
         'paddingLeft',
+        'gap',
         'gridGap',
+        'columnGap',
         'gridColumnGap',
+        'MozColumnGap',
+        'WebkitColumnGap',
+        'rowGap',
         'gridRowGap',
 
         // Own utils

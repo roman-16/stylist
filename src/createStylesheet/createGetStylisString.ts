@@ -36,6 +36,26 @@ const resolveScales = (key: string, value: string | number, scales: Scales[]): s
   return getStringValue();
 };
 
+const ownUtils: UtilsObject = {
+  m: (value) => ({ margin: value }),
+  mt: (value) => ({ marginTop: value }),
+  mr: (value) => ({ marginRight: value }),
+  mb: (value) => ({ marginBottom: value }),
+  ml: (value) => ({ marginLeft: value }),
+  mx: (value) => ({ marginRight: value, marginLeft: value }),
+  my: (value) => ({ marginTop: value, marginBottom: value }),
+
+  p: (value) => ({ padding: value }),
+  pt: (value) => ({ paddingTop: value }),
+  pr: (value) => ({ paddingRight: value }),
+  pb: (value) => ({ paddingBottom: value }),
+  pl: (value) => ({ paddingLeft: value }),
+  px: (value) => ({ paddingRight: value, paddingLeft: value }),
+  py: (value) => ({ paddingTop: value, paddingBottom: value }),
+
+  bg: (value) => ({ backgroundColor: value }),
+};
+
 const createGetStylisString = ({
   breakpoints,
   theme,
@@ -45,6 +65,7 @@ const createGetStylisString = ({
   theme?: Theme;
   utilsObject?: UtilsObject;
 }) => {
+  const mergedUtilsObject: UtilsObject = { ...utilsObject, ...ownUtils };
   const scales: Scales[] = [];
 
   if (theme?.space) {
@@ -63,6 +84,23 @@ const createGetStylisString = ({
         'gridGap',
         'gridColumnGap',
         'gridRowGap',
+
+        // Own utils
+        'm',
+        'mt',
+        'mr',
+        'mb',
+        'ml',
+        'mx',
+        'my',
+
+        'p',
+        'pt',
+        'pr',
+        'pb',
+        'pl',
+        'px',
+        'py',
       ],
       scale: theme.space,
     });
@@ -73,7 +111,8 @@ const createGetStylisString = ({
   }
 
   if (theme?.colors) {
-    scales.push({ keys: ['color', 'backgroundColor', 'borderColor'], scale: theme.colors });
+    // 'bg' is from own utils
+    scales.push({ keys: ['color', 'backgroundColor', 'borderColor', 'bg'], scale: theme.colors });
   }
 
   if (theme?.fonts) {
@@ -129,7 +168,7 @@ const createGetStylisString = ({
   const getStylisString = (styles: Styles, disableUtil = false): string =>
     Object.entries(styles).reduce((previous, [key, value]) => {
       const breakpoint = breakpoints?.[key];
-      const util = utilsObject?.[key];
+      const util = mergedUtilsObject?.[key];
       const resolvedKey = resolveKey(key);
 
       if (breakpoint) {

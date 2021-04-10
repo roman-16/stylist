@@ -4,7 +4,7 @@ import createGetStylisString from './createGetStylisString';
 import createParseStylisString from './createParseStylisString';
 import resolveUtils from './resolveUtils';
 
-const createStylesheet = ({ breakpoints, theme, stylis, utils }: Config) => {
+const createStylesheet = ({ breakpoints, theme, stylis, utils }: Config = {}) => {
   const styleElement = document.createElement('style');
   const stylesMap = new Map<string, number[]>();
   const utilsObject = resolveUtils(utils, theme);

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`allows styling 1`] = `"margin:2px;font-size:32px;background-color:#FF0000;font-family:Helvetica;font-weight:300;line-height:2.2;letter-spacing:1px;height:64px;border:1px solid black;border-width:1px;border-style:dotted;border-radius:16px;box-shadow:1px 1px;z-index:0;transition:all 4s;padding:7px;padding:4px;display:block;@media (min-width: 576px) { margin:4px; }"`;
+
+exports[`resolves the basic utils 1`] = `"margin:2px;padding:4px;background-color:#FF0000;"`;
+
+exports[`resolves the basic utils 2`] = `"margin-top:2px;margin-right:4px;margin-bottom:2px;margin-left:4px;padding-top:2px;padding-right:4px;padding-bottom:2px;padding-left:4px;"`;
+
+exports[`resolves the basic utils 3`] = `"margin-right:2px;margin-left:2px;margin-top:4px;margin-bottom:4px;padding-right:2px;padding-left:2px;padding-top:4px;padding-bottom:4px;"`;

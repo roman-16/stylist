@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`creates a Input component 1`] = `
+<div>
+  <input
+    class="sts-14765"
+  />
+</div>
+`;
+
+exports[`creates a Input component 2`] = `
+Array [
+  ".sts-14765 {display: flex; font-size: 16px;}",
+  ".sts-14765:hover {font-size: 8px;}",
+]
+`;
+
+exports[`lets you add attributes 1`] = `
+<div>
+  <input
+    class="sts-14765"
+    id="test-id"
+  />
+</div>
+`;
+
+exports[`lets you use an empty styles object 1`] = `
+<div>
+  <div
+    class="sts-34788"
+  />
+</div>
+`;

@@ -37,25 +37,44 @@ export interface Config {
   stylis?: StylisConfig;
 }
 
-export interface Styles extends CSS.Properties {
-  m?: CSS.Properties['margin'];
-  mt?: CSS.Properties['marginTop'];
-  mr?: CSS.Properties['marginRight'];
-  mb?: CSS.Properties['marginBottom'];
-  ml?: CSS.Properties['marginLeft'];
-  mx?: CSS.Properties['margin'];
-  my?: CSS.Properties['margin'];
+interface CSSProperties<TLength = (string & {}) | number> extends CSS.Properties<TLength> {
+  m?: CSS.Properties<TLength>['margin'];
+  mt?: CSS.Properties<TLength>['marginTop'];
+  mr?: CSS.Properties<TLength>['marginRight'];
+  mb?: CSS.Properties<TLength>['marginBottom'];
+  ml?: CSS.Properties<TLength>['marginLeft'];
+  mx?: CSS.Properties<TLength>['margin'];
+  my?: CSS.Properties<TLength>['margin'];
 
-  p?: CSS.Properties['padding'];
-  pt?: CSS.Properties['paddingTop'];
-  pr?: CSS.Properties['paddingRight'];
-  pb?: CSS.Properties['paddingBottom'];
-  pl?: CSS.Properties['paddingLeft'];
-  px?: CSS.Properties['padding'];
-  py?: CSS.Properties['padding'];
+  p?: CSS.Properties<TLength>['padding'];
+  pt?: CSS.Properties<TLength>['paddingTop'];
+  pr?: CSS.Properties<TLength>['paddingRight'];
+  pb?: CSS.Properties<TLength>['paddingBottom'];
+  pl?: CSS.Properties<TLength>['paddingLeft'];
+  px?: CSS.Properties<TLength>['padding'];
+  py?: CSS.Properties<TLength>['padding'];
 
-  bg?: CSS.Properties['backgroundColor'];
+  bg?: CSS.Properties<TLength>['backgroundColor'];
 }
+type RecursiveStyles<T> = Record<string, CSSProperties | T> | CSSProperties;
+// A few recurssions to cover 99.99% of the nesting cases
+export type Styles = RecursiveStyles<
+  RecursiveStyles<
+    RecursiveStyles<
+      RecursiveStyles<
+        RecursiveStyles<
+          RecursiveStyles<
+            RecursiveStyles<
+              RecursiveStyles<
+                RecursiveStyles<RecursiveStyles<RecursiveStyles<RecursiveStyles<RecursiveStyles<CSSProperties>>>>>
+              >
+            >
+          >
+        >
+      >
+    >
+  >
+>;
 
 export interface StylisProps extends React.AllHTMLAttributes<Element> {
   css?: Styles;
@@ -70,4 +89,5 @@ export interface StylistComponent extends React.ForwardRefExoticComponent<Stylis
     styles: StylesMaybeFunction[];
     props: StylisProps[];
   };
+  attrs: (props: StylisProps) => StylistComponent;
 }

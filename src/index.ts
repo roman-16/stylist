@@ -32,8 +32,6 @@ const createStyled = (config: Config = {}) => {
             {},
           );
 
-          console.log(newStyles);
-
           stylesheet.addStyles(newStyles, stylist.staticClassName);
         }, []);
 
@@ -41,8 +39,6 @@ const createStyled = (config: Config = {}) => {
 
         useEffect(() => {
           if (firstMount) return;
-
-          console.log(css, mergedProps);
 
           throw new Error('css or props updated');
           // TODO: Add update mechanism
@@ -52,7 +48,6 @@ const createStyled = (config: Config = {}) => {
         return createElement(stylist.rootElement, {
           ...mergedProps,
           ref,
-          // eslint-disable-next-line react/destructuring-assignment
           className: `${mergedProps.className ?? ''} ${stylist.staticClassName} ${className || ''}`.trim(),
         });
       }),
@@ -69,7 +64,6 @@ const createStyled = (config: Config = {}) => {
 
           return StyledComponent;
         },
-        toString: () => `.${StyledComponent.__stylist.staticClassName}`,
       },
     );
 
